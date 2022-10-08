@@ -1,9 +1,25 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
+
+const tipData = [0.05, 0.1, 0.15, 0.25, 0.5];
 
 const TipCalculatorCard: React.FC = () => {
-  const [tip, setTip] = useState(5);
+  const [tip, setTip] = useState<number>(0.15);
+  const [bill, setBill] = useState<number>(0);
+  const [people, setPeople] = useState<number>(1);
 
-  const tipData = [0.05, 0.1, 0.15, 0.25, 0.5];
+  const handleCustomTip = () => {
+    setTip('Custom');
+  };
+
+  const tipAmountPerPerson = useMemo(
+    () => ((bill * tip) / people).toFixed(2),
+    [bill, tip, people]
+  );
+
+  const totalAmount = useMemo(
+    () => ((bill + bill * tip) / people).toFixed(2),
+    [bill, tip, people]
+  );
 
   return (
     <div className="grid grid-cols-2 gap-8 w-full p-8 bg-white rounded-3xl">
@@ -17,6 +33,8 @@ const TipCalculatorCard: React.FC = () => {
             <input
               id="euro"
               name="euro"
+              value={bill}
+              onChange={(event) => setBill(+event.target.value)}
               type="number"
               placeholder="0"
               aria-label="Euro"
@@ -28,15 +46,24 @@ const TipCalculatorCard: React.FC = () => {
         <div className="grid gap-2">
           <h2>Select tip %</h2>
           <ul className="grid grid-cols-3 gap-2">
-            {tipData.map((tip, index) => (
+            {tipData.map((currTip, index) => (
               <li
                 key={index}
-                onClick={() => console.log(tip)}
-                className="bg-app-teal-900 text-white rounded-lg px-6 py-2 text-center cursor-pointer"
-              >{`${tip * 100}%`}</li>
+                onClick={() => setTip(currTip)}
+                className={`text-white rounded-lg px-6 py-2 text-center cursor-pointer transition hover:scale-105 ${
+                  currTip === tip ? 'bg-app-accent' : 'bg-app-teal-900'
+                }`}
+              >{`${currTip * 100}%`}</li>
             ))}
 
-            <li className="rounded-lg bg-app-teal-100 px-6 py-2 text-app-teal-600 cursor-pointer">
+            <li
+              className={`rounded-lg  px-6 py-2 cursor-pointer transition hover:scale-105 ${
+                tip === 'Custom'
+                  ? 'text-white bg-app-accent'
+                  : 'text-app-teal-600 bg-app-teal-100'
+              }`}
+              onClick={handleCustomTip}
+            >
               Custom
             </li>
           </ul>
@@ -51,10 +78,12 @@ const TipCalculatorCard: React.FC = () => {
             <input
               id="people"
               name="people"
+              value={people}
+              onChange={(event) => setPeople(+event.target.value)}
               type="number"
               placeholder="0"
               aria-label="Number of people"
-              className="text-right w-full bg-app-teal-100 p-4 rounded-lg"
+              className="text-right w-full bg-app-teal-100 p-4 rounded-lg transition hover:outline-app-accent focus:outline-app-accent"
             />
           </div>
         </div>
@@ -68,7 +97,9 @@ const TipCalculatorCard: React.FC = () => {
               <span className="text-[.8125rem] opacity-30">/ Person</span>
             </div>
 
-            <div className="text-app-accent text-5xl">€0,00</div>
+            <div className="text-app-accent text-5xl">
+              €{tipAmountPerPerson}
+            </div>
           </div>
 
           <div className="flex items-center justify-between">
@@ -77,11 +108,11 @@ const TipCalculatorCard: React.FC = () => {
               <span className="text-[.8125rem] opacity-30">/ Person</span>
             </div>
 
-            <div className="text-app-accent text-5xl">€0,00</div>
+            <div className="text-app-accent text-5xl">€{totalAmount}</div>
           </div>
         </div>
 
-        <button className="text-center w-full bg-app-accent p-2 rounded-xl">
+        <button className="text-center w-full bg-app-accent p-2 rounded-xl transition hover:scale-105">
           Reset
         </button>
       </div>
