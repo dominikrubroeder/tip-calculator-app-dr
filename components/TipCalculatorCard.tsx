@@ -7,18 +7,20 @@ const TipCalculatorCard: React.FC = () => {
 
   return (
     <div className="grid grid-cols-2 gap-8 w-full p-8 bg-white rounded-3xl">
-      <div>
+      <div className="grid gap-8">
         <div className="grid gap-2">
           <h2>Bill</h2>
-          <div>
-            <label htmlFor="euro">€</label>
+          <div className="relative">
+            <label htmlFor="euro" className="absolute left-4 top-4">
+              €
+            </label>
             <input
               id="euro"
               name="euro"
               type="number"
               placeholder="0"
               aria-label="Euro"
-              className="text-right"
+              className="text-right w-full bg-app-teal-100 p-4 rounded-lg"
             />
           </div>
         </div>
@@ -39,9 +41,50 @@ const TipCalculatorCard: React.FC = () => {
             </li>
           </ul>
         </div>
+
+        <div className="grid gap-2">
+          <h2>Number of people</h2>
+          <div className="relative">
+            <label htmlFor="people" className="absolute left-4 top-4">
+              €
+            </label>
+            <input
+              id="people"
+              name="people"
+              type="number"
+              placeholder="0"
+              aria-label="Number of people"
+              className="text-right w-full bg-app-teal-100 p-4 rounded-lg"
+            />
+          </div>
+        </div>
       </div>
 
-      <div className="bg-app-teal-900 rounded-xl text-white p-4">2</div>
+      <div className="flex items-start justify-between flex-col bg-app-teal-900 rounded-xl text-white p-10">
+        <div className="grid gap-8 w-full">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2>Tip Amount</h2>
+              <span className="text-[.8125rem] opacity-30">/ Person</span>
+            </div>
+
+            <div className="text-app-accent text-5xl">€0,00</div>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <div>
+              <h2>Total</h2>
+              <span className="text-[.8125rem] opacity-30">/ Person</span>
+            </div>
+
+            <div className="text-app-accent text-5xl">€0,00</div>
+          </div>
+        </div>
+
+        <button className="text-center w-full bg-app-accent p-2 rounded-xl">
+          Reset
+        </button>
+      </div>
     </div>
   );
 };
