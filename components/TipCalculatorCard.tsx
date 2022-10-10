@@ -48,7 +48,7 @@ const TipCalculatorCard: React.FC = () => {
   };
 
   return (
-    <div className="grid gap-8 w-full p-8 bg-white rounded-tl-3xl rounded-tr-3xl md:rounded-3xl md:grid-cols-2">
+    <div className="grid gap-8 w-full p-8 bg-white opacity-0 invisible rounded-tl-3xl rounded-tr-3xl animate-fadeUp md:rounded-3xl md:grid-cols-2">
       <div className="grid gap-8">
         <div className="grid gap-2">
           <h2>Bill</h2>
@@ -167,7 +167,7 @@ const TipCalculatorCard: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex items-start justify-between gap-10 flex-col bg-app-teal-900 rounded-xl text-white p-10 md:gap-16">
+      <div className="flex items-start justify-between gap-10 flex-col bg-app-teal-900 rounded-xl text-white p-10 opacity-0 invisible animate-scaleUp md:gap-16">
         <div className="grid gap-4 w-full md:gap-8">
           <div className="flex items-center justify-between md:gap-4">
             <h2 className="mb-4">Tip Amount</h2>
