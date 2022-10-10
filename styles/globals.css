@@ -49,4 +49,8 @@
   input[type='number'] {
     -moz-appearance: textfield;
   }
+
+  .grid > * {
+    min-width: 0;
+  }
 }
