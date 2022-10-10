@@ -43,7 +43,7 @@ const TipCalculatorCard: React.FC = () => {
   const reset = () => {
     setTip(tipData[0]);
     setCustomTip(null);
-    setBill(0);
+    setBill(null);
     setPeople(1);
   };
 
